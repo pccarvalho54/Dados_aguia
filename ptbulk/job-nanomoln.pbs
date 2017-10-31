@@ -1,0 +1,19 @@
+#PBS -S /bin/bash
+#PBS -l nodes=1:ppn=3
+##PBS -l walltime=300:00:00
+#PBS -l cput=7000:00:00
+#PBS -N Pt-bulk
+#PBS -m e
+#PBS -q default     
+#PBS -M p-pam@hotmail.com
+
+cd $PBS_O_WORKDIR
+module add libraries/impi/5.0-intel-15.03
+module add compilers/intel-15.03
+module add libraries/mkl-11.2/intel-15.03
+module add runtime/intel-15.03
+module add libraries/fftw/3.3.4-intel-15.03
+
+ulimit -s unlimited
+
+mpirun -np 3 -machinefile $PBS_NODEFILE ~/rs-asr/for/rsnew-paral-64.x > job.out
